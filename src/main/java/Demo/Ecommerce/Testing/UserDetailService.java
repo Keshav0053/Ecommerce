@@ -8,8 +8,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 
 @Configuration
-public class LoginTesting {
-
+public class UserDetailService {
     @Bean
     public UserDetailsService userDetailsService(
             PasswordEncoder passwordEncoder) {
@@ -21,7 +20,6 @@ public class LoginTesting {
                         .password(passwordEncoder.encode("admin123"))
                         .roles("ADMIN")
                         .build();
-
         return new InMemoryUserDetailsManager(user);
     }
 }

@@ -1,7 +1,7 @@
-package Demo.demo.Service;
+package Demo.Ecommerce.Service;
 
-import Demo.demo.DTO.UserDTO;
-import Demo.demo.Entity.User;
+import Demo.Ecommerce.DTO.UserDTO;
+import Demo.Ecommerce.Entity.User;
 
 import java.util.List;
 import java.util.UUID;

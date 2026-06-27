@@ -9,7 +9,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class CategoryDTO {
+public class CategoryRequestDTO {
     private Long parentId;
     private String name;
     private String slug;

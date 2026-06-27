@@ -1,8 +1,8 @@
-package Demo.demo.Controller;
+package Demo.Ecommerce.Controller;
 
-import Demo.demo.DTO.UserDTO;
-import Demo.demo.Entity.User;
-import Demo.demo.Service.UserService;
+import Demo.Ecommerce.DTO.UserDTO;
+import Demo.Ecommerce.Entity.User;
+import Demo.Ecommerce.Service.UserService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -18,7 +18,7 @@ public class UserController {
     private UserService userService;
 
     @PostMapping
-    public ResponseEntity<User> createUser(@Valid @RequestBody UserDTO request) {
+    public ResponseEntity<User> createUser(@RequestBody UserDTO request) {
         User user = userService.createUser(request);
         return ResponseEntity.ok(user);
     }

@@ -1,4 +1,4 @@
-package Demo.demo.Entity;
+package Demo.Ecommerce.Entity;
 
 import jakarta.persistence.*;
 import lombok.*;

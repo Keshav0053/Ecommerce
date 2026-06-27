@@ -1,9 +1,9 @@
-package Demo.demo.Service;
+package Demo.Ecommerce.Service;
 
-import Demo.demo.DTO.UserDTO;
-import Demo.demo.Entity.User;
-import Demo.demo.Entity.UserStatus;
-import Demo.demo.Repository.UserRepository;
+import Demo.Ecommerce.DTO.UserDTO;
+import Demo.Ecommerce.Entity.User;
+import Demo.Ecommerce.Entity.UserStatus;
+import Demo.Ecommerce.Repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
