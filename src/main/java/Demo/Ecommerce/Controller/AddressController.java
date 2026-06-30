@@ -19,11 +19,11 @@ public class AddressController {
     public AddressResponseDTO create(@RequestBody AddressRequestDTO request) {
         return service.create(request);
     }
-    @GetMapping("/{id}")
+    @GetMapping("/getBYId/{id}")
     public AddressResponseDTO getById(@PathVariable UUID id) {
         return service.getById(id);
     }
-    @GetMapping
+    @GetMapping("/getAllAddresses")
     public List<AddressResponseDTO> getAll() {
         return service.getAll();
     }

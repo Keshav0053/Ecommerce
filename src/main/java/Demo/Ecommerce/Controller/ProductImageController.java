@@ -14,16 +14,16 @@ import java.util.List;
 public class ProductImageController {
     @Autowired
     private  ProductImageService service;
-    @PostMapping
-    public ProductImageResponseDTO create(@RequestBody ProductImageRequestDTO request) {
+    @PostMapping("/createProductImage")
+    public ProductImageResponseDTO createProductImage(@RequestBody ProductImageRequestDTO request) {
         return service.create(request);
     }
-    @GetMapping("/{id}")
-    public ProductImageResponseDTO getById(@PathVariable Long id) {
+    @GetMapping("/getProductImageById/{id}")
+    public ProductImageResponseDTO getProductImageById(@PathVariable Long id) {
         return service.getById(id);
     }
-    @GetMapping
-    public List<ProductImageResponseDTO> getAll() {
+    @GetMapping("/getAllProductImages")
+    public List<ProductImageResponseDTO> getAllProductImages(@RequestParam Integer page, @RequestParam Integer size) {
         return service.getAll();
     }
     @PutMapping("/{id}")

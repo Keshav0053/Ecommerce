@@ -15,16 +15,16 @@ import java.util.List;
 public class CategoryController {
 @Autowired
     private CategoryService categoryService;
-    @PostMapping
-    public CategoryResponseDTO create(@RequestBody CategoryRequestDTO dto) {
+    @PostMapping("/createCategory")
+    public CategoryResponseDTO createCategory(@RequestBody CategoryRequestDTO dto) {
         return categoryService.create(dto);
     }
-    @GetMapping
-    public List<CategoryResponseDTO> getAll() {
+    @GetMapping("/getAllCategories")
+    public List<CategoryResponseDTO> getAllCategories() {
         return categoryService.getAll();
     }
-    @GetMapping("/{id}")
-    public CategoryResponseDTO getById(@PathVariable Long id) {
+    @GetMapping("/getCategoryById/{id}")
+    public CategoryResponseDTO getCategoryById(@PathVariable Long id) {
         return categoryService.getById(id);
     }
     @PutMapping("/{id}")

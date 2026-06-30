@@ -15,16 +15,16 @@ import java.util.UUID;
 public class CartItemController {
 @Autowired
     private CartItemService service;
-    @PostMapping
-    public CartItemResponseDTO create(@RequestBody CartItemRequestDTO request) {
+    @PostMapping("/createCartItem")
+    public CartItemResponseDTO createCartItem(@RequestBody CartItemRequestDTO request) {
         return service.create(request);
     }
-    @GetMapping("/{id}")
-    public CartItemResponseDTO getById(@PathVariable UUID id) {
+    @GetMapping("/getCartItemById/{id}")
+    public CartItemResponseDTO getCartItemById(@PathVariable UUID id) {
         return service.getById(id);
     }
-    @GetMapping
-    public List<CartItemResponseDTO> getAll() {
+    @GetMapping("/getAllCartItems")
+    public List<CartItemResponseDTO> getAllCartItems() {
         return service.getAll();
     }
     @PutMapping("/{id}")

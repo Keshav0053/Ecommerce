@@ -3,6 +3,7 @@ package Demo.Ecommerce.Entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Entity
@@ -10,57 +11,57 @@ import java.util.UUID;
 @Getter
 @Setter
 @AllArgsConstructor
+@NoArgsConstructor
 @Table(name = "users")
 public class User {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
+    @GeneratedValue
     private UUID id;
 
-    @Column(name = "first_name", nullable = false)
+    @Column(name = "first_name", length = 100)
     private String firstName;
 
-    @Column(name = "last_name")
+    @Column(name = "last_name", length = 100)
     private String lastName;
 
-    @Column(unique = true, nullable = false)
+    @Column(nullable = false, unique = true, length = 255)
     private String email;
 
-    @Column(unique = true)
+    @Column(unique = true, length = 15)
     private String mobile;
 
-    @Column(name = "password_hash", nullable = false)
+    @Column(name = "password_hash")
     private String passwordHash;
-
     private String role;
-
     @Column(name = "is_email_verified")
-    private Boolean isEmailVerified =true;
+    @Builder.Default
+    private Boolean isEmailVerified = false;
 
     @Column(name = "is_mobile_verified")
-    private Boolean isMobileVerified =true;
+    @Builder.Default
+    private Boolean isMobileVerified = false;
 
-    @Enumerated(EnumType.STRING)
-    private UserStatus status;
+    @Column(length = 20)
+    @Builder.Default
+    private String status = "ACTIVE";
 
-    public User() {
-    }
-    public Boolean getEmailVerified() {
+    @Column(name = "created_at", updatable = false)
+    private LocalDateTime createdAt;
 
-        return isEmailVerified;
-    }
+    @Column(name = "updated_at")
+    private LocalDateTime updatedAt;
 
-    public void setEmailVerified(Boolean emailVerified) {
-        isEmailVerified = emailVerified;
-    }
-
-    public Boolean getMobileVerified() {
-        return isMobileVerified;
-    }
-
-    public void setMobileVerified(Boolean mobileVerified) {
-        isMobileVerified = mobileVerified;
+    @PrePersist
+    public void prePersist() {
+        createdAt = LocalDateTime.now();
+        updatedAt = LocalDateTime.now();
     }
 
+    @PreUpdate
+    public void preUpdate() {
+        updatedAt = LocalDateTime.now();
+    }
 }
 
 

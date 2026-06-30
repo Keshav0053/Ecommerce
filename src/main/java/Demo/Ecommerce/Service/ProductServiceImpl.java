@@ -44,7 +44,6 @@ public class ProductServiceImpl implements ProductService {
     }
     @Override
     public List<ProductResponseDTO> getAllProducts() {
-
         return productRepository.findAll()
                 .stream()
                 .map(this::mapToResponse)

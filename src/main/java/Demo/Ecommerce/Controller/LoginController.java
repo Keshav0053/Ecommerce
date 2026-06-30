@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 public class LoginController {
 @Autowired
     private LoginService loginService;
-    @PostMapping
+    @PostMapping("/socialLogin")
     public ResponseEntity<LoginResponseDTO> socialLogin(
             @Valid @RequestBody LoginRequestDTO request) {
         LoginResponseDTO response = loginService.socialLogin(request);

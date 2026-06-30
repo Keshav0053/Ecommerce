@@ -15,16 +15,16 @@ import java.util.UUID;
 public class PaymentController {
     @Autowired
     private  PaymentService service;
-    @PostMapping
-    public PaymentResponseDTO create(@RequestBody PaymentRequestDTO request) {
+    @PostMapping("/createPayment")
+    public PaymentResponseDTO createPayment(@RequestBody PaymentRequestDTO request) {
         return service.create(request);
     }
-    @GetMapping("/{id}")
-    public PaymentResponseDTO getById(@PathVariable UUID id) {
+    @GetMapping("/getPaymentById/{id}")
+    public PaymentResponseDTO getPaymentById(@PathVariable UUID id) {
         return service.getById(id);
     }
-    @GetMapping
-    public List<PaymentResponseDTO> getAll() {
+    @GetMapping("/getAllPayments")
+    public List<PaymentResponseDTO> getAllPayments() {
         return service.getAll();
     }
     @PutMapping("/{id}")

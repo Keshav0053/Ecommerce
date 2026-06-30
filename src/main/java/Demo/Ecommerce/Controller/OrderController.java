@@ -16,18 +16,18 @@ public class OrderController {
     @Autowired
     private OrderService service;
 
-    @PostMapping
-    public OrderResponseDTO create(@RequestBody OrderRequestDTO request) {
+    @PostMapping("/createOrder")
+    public OrderResponseDTO createOrder(@RequestBody OrderRequestDTO request) {
         return service.create(request);
     }
 
-    @GetMapping("/{id}")
-    public OrderResponseDTO getById(@PathVariable UUID id) {
+    @GetMapping("/getOrderById/{id}")
+    public OrderResponseDTO getOrderById(@PathVariable UUID id) {
         return service.getById(id);
     }
 
-    @GetMapping
-    public List<OrderResponseDTO> getAll() {
+    @GetMapping("/getAllOrders")
+    public List<OrderResponseDTO> getAllOrders() {
         return service.getAll();
     }
 

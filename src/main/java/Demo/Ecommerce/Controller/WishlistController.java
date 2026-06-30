@@ -16,16 +16,16 @@ public class WishlistController {
     @Autowired
     private  WishlistService service;
 
-    @PostMapping
-    public WishlistResponseDTO create(@RequestBody WishlistRequestDTO request) {
+    @PostMapping("/createWishlist")
+    public WishlistResponseDTO createWishlist(@RequestBody WishlistRequestDTO request) {
         return service.create(request);
     }
-    @GetMapping("/{id}")
-    public WishlistResponseDTO getById(@PathVariable UUID id) {
+    @GetMapping("/getWishlistById/{id}")
+    public WishlistResponseDTO getWishlistById(@PathVariable UUID id) {
         return service.getById(id);
     }
-    @GetMapping
-    public List<WishlistResponseDTO> getAll() {
+    @GetMapping("/getAllWishlists")
+    public List<WishlistResponseDTO> getAllWishlists() {
         return service.getAll();
     }
     @PutMapping("/{id}")

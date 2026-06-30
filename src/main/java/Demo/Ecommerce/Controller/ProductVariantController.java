@@ -15,16 +15,16 @@ import java.util.UUID;
 public class ProductVariantController {
     @Autowired
     private ProductVariantService service;
-    @PostMapping
+    @PostMapping("/createProductVariant")
     public ProductVariantResponseDTO create(@RequestBody ProductVariantRequestDTO request) {
         return service.create(request);
     }
-    @GetMapping("/{id}")
-    public ProductVariantResponseDTO getById(@PathVariable UUID id) {
+    @GetMapping("/getProductVariantById/{id}")
+    public ProductVariantResponseDTO getProductVariantById(@PathVariable UUID id) {
         return service.getById(id);
     }
-    @GetMapping
-    public List<ProductVariantResponseDTO> getAll() {
+    @GetMapping("/getAllProductVariant")
+    public List<ProductVariantResponseDTO> getAllProductVariant() {
         return service.getAll();
     }
     @PutMapping("/{id}")

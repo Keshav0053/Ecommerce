@@ -14,16 +14,16 @@ public class BrandController {
     @Autowired
     private BrandService brandService;
 
-    @PostMapping
-    public BrandResponseDTO create(@RequestBody BrandRequestDTO dto) {
+    @PostMapping("/createBrand")
+    public BrandResponseDTO createBrand(@RequestBody BrandRequestDTO dto) {
         return brandService.create(dto);
     }
-    @GetMapping
-    public List<BrandResponseDTO> getAll() {
+    @GetMapping("/getAllBrands")
+    public List<BrandResponseDTO> getAllBrands() {
         return brandService.getAll();
     }
-    @GetMapping("/{id}")
-    public BrandResponseDTO getById(@PathVariable Long id) {
+    @GetMapping("/getBrandById/{id}")
+    public BrandResponseDTO getBrandById(@PathVariable Long id) {
         return brandService.getById(id);
     }
     @PutMapping("/{id}")

@@ -24,13 +24,13 @@ public class ProductController {
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/getProductById/{id}")
     public ResponseEntity<ProductResponseDTO> getProductById(
             @PathVariable UUID id) {
         ProductResponseDTO response = productService.getProductById(id);
         return ResponseEntity.ok(response);
     }
-    @GetMapping
+    @GetMapping("/getAllProducts")
     public ResponseEntity<List<ProductResponseDTO>> getAllProducts() {
         List<ProductResponseDTO> response = productService.getAllProducts();
         return ResponseEntity.ok(response);

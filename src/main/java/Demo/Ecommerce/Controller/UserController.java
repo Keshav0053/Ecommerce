@@ -1,9 +1,9 @@
 package Demo.Ecommerce.Controller;
 
-import Demo.Ecommerce.DTO.UserDTO;
-import Demo.Ecommerce.Entity.User;
+import Demo.Ecommerce.DTO.ApiResponse;
+import Demo.Ecommerce.DTO.UserRequestDTO;
+import Demo.Ecommerce.DTO.UserResponseDTO;
 import Demo.Ecommerce.Service.UserService;
-import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,22 +16,21 @@ import java.util.UUID;
 public class UserController {
     @Autowired
     private UserService userService;
-
-    @PostMapping
-    public ResponseEntity<User> createUser(@RequestBody UserDTO request) {
-        User user = userService.createUser(request);
-        return ResponseEntity.ok(user);
+    @PostMapping("/createUser")
+    public ApiResponse<UserResponseDTO> createUser(@RequestBody UserRequestDTO request) {
+        UserResponseDTO response = userService.createUser(request);
+        return ApiResponse.<UserResponseDTO>builder()
+                .success(true)
+                .message("User created successfully.")
+                .data(response)
+                .build();
     }
-
-    @GetMapping
-    public ResponseEntity<List<User>> getAllUsers() {
-
+    @GetMapping("/getAllUsers")
+    public ResponseEntity<List<UserResponseDTO>> getAllUsers() {
         return ResponseEntity.ok(userService.getAllUsers());
     }
-
-    @GetMapping("/{id}")
-    public ResponseEntity<User> getUserById(@PathVariable UUID id) {
-
+    @GetMapping("/getUserById/{id}")
+    public ResponseEntity<UserResponseDTO> getUserById(@PathVariable UUID id) {
         return ResponseEntity.ok(userService.getUserById(id));
     }
 }
