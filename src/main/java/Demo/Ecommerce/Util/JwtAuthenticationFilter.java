@@ -1,4 +1,4 @@
-package Demo.Ecommerce.JWTUtil;
+package Demo.Ecommerce.Util;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

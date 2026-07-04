@@ -2,48 +2,72 @@ package Demo.Ecommerce.Service;
 
 import Demo.Ecommerce.DTO.LoginRequestDTO;
 import Demo.Ecommerce.DTO.LoginResponseDTO;
-import Demo.Ecommerce.Entity.LoginEntity;
-import Demo.Ecommerce.Repository.LoginRepository;
+import Demo.Ecommerce.Entity.User;
+import Demo.Ecommerce.Util.JwtUtil;
 import Demo.Ecommerce.Repository.UserRepository;
-import Demo.Ecommerce.JWTUtil.JwtService;
-import Demo.Ecommerce.Service.LoginService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
 public class LoginServiceImp implements LoginService {
+    @Autowired
+    private  UserRepository userRepository;
 @Autowired
-    private  LoginRepository loginRepository;
+    private  PasswordEncoder passwordEncoder;
 @Autowired
-    private UserRepository userRepository;
-@Autowired
-    private  JwtService jwtService;
+    private JwtUtil jwtUtil;
     @Override
-    public LoginResponseDTO socialLogin(LoginRequestDTO request) {
-        // User Exists?
-        if (!userRepository.existsById(request.getUserId())) {
-            throw new RuntimeException("User not found.");
+    public LoginResponseDTO login(LoginRequestDTO request) {
+
+        User user = null;
+
+        // Login using Email
+        if (request.getEmail() != null && !request.getEmail().trim().isEmpty()) {
+            user = userRepository.findByEmail(request.getEmail()).orElse(null);
         }
-        // Save Login
-        LoginEntity login = LoginEntity.builder()
-                .userId(request.getUserId())
-                .provider(request.getProvider())
-                .providerUserId(request.getProviderUserId())
-                .build();
-        LoginEntity savedLogin = loginRepository.save(login);
+        // Login using Mobile Number
+        else if (request.getMobileNumber() != null && !request.getMobileNumber().trim().isEmpty()) {
+            user = userRepository.findByMobile(request.getMobileNumber()).orElse(null);
+        }
+        // Neither Email nor Mobile provided
+        else {
+            return LoginResponseDTO.builder()
+                    .success(false)
+                    .message("Email or Mobile Number is required")
+                    .build();
+        }
+
+        // User not found
+        if (user == null) {
+            return LoginResponseDTO.builder()
+                    .success(false)
+                    .message("Invalid Email or Mobile Number")
+                    .build();
+        }
+
+        // Password mismatch
+        if (!passwordEncoder.matches(request.getPassword(), user.getPasswordHash())) {
+            return LoginResponseDTO.builder()
+                    .success(false)
+                    .message("Invalid Password")
+                    .build();
+        }
+
         // Generate JWT
-        String token = jwtService.generateToken(savedLogin.getUserId());
-        // Response
+        String token = jwtUtil.generateToken(user.getEmail());
+
         return LoginResponseDTO.builder()
-                .id(savedLogin.getId())
-                .userId(savedLogin.getUserId())
-                .provider(savedLogin.getProvider())
-                .providerUserId(savedLogin.getProviderUserId())
-                .createdAt(savedLogin.getCreatedAt())
-                .token(token)
+                .success(true)
                 .message("Login Successful")
+                .id(user.getId())
+                .firstName(user.getFirstName())
+                .lastName(user.getLastName())
+                .email(user.getEmail())
+                .mobileNumber(user.getMobile())
+                .token(token)
                 .build();
     }
 }

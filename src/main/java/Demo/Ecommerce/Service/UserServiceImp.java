@@ -41,7 +41,7 @@ public class UserServiceImp implements UserService {
                 .passwordHash(passwordEncoder.encode(request.getPassword()))
                 .isEmailVerified(false)
                 .isMobileVerified(false)
-                .status("ACTIVE")
+                .status(request.getStatus())
                 .build();
         User savedUser = userRepository.save(user);
         return mapToResponse(savedUser);
@@ -90,7 +90,7 @@ public class UserServiceImp implements UserService {
                 .emailVerified(user.getIsEmailVerified())
                 .mobileVerified(user.getIsMobileVerified())
                 .role(user.getRole())
-                .status(UserStatus.valueOf(user.getStatus()))
+                .status(user.getStatus())
                 .createdAt(user.getCreatedAt())
                 .updatedAt(user.getUpdatedAt())
                 .build();

@@ -1,5 +1,6 @@
 package Demo.Ecommerce.DTO;
 
+import Demo.Ecommerce.Entity.UserStatus;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -12,4 +13,6 @@ public class UserRequestDTO {
     private String mobile;
     private String password;
     private String role;
+    private UserStatus status;
+
 }

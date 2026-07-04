@@ -33,4 +33,28 @@ public class UserController {
     public ResponseEntity<UserResponseDTO> getUserById(@PathVariable UUID id) {
         return ResponseEntity.ok(userService.getUserById(id));
     }
+    @PutMapping("/updateUser/{id}")
+    public ApiResponse<UserResponseDTO> updateUser(
+            @PathVariable UUID id,
+            @RequestBody UserRequestDTO request) {
+
+        UserResponseDTO response = userService.updateUser(id, request);
+
+        return ApiResponse.<UserResponseDTO>builder()
+                .success(true)
+                .message("User updated successfully.")
+                .data(response)
+                .build();
+    }
+    @DeleteMapping("/deleteUser/{id}")
+    public ApiResponse<String> deleteUser(@PathVariable UUID id) {
+
+        userService.deleteUser(id);
+
+        return ApiResponse.<String>builder()
+                .success(true)
+                .message("User deleted successfully.")
+                .data("Deleted Successfully")
+                .build();
+    }
 }

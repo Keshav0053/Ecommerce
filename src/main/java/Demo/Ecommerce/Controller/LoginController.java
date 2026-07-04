@@ -11,16 +11,16 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/logins")
+@RequestMapping("/api/auth")
 @RequiredArgsConstructor
 public class LoginController {
 @Autowired
-    private LoginService loginService;
-    @PostMapping("/socialLogin")
-    public ResponseEntity<LoginResponseDTO> socialLogin(
-            @Valid @RequestBody LoginRequestDTO request) {
-        LoginResponseDTO response = loginService.socialLogin(request);
-        return new ResponseEntity<>(response, HttpStatus.OK);
-    }
+private  LoginService loginService;
 
+    @PostMapping("/login")
+    public ResponseEntity<LoginResponseDTO> login(
+            @Valid @RequestBody LoginRequestDTO request) {
+
+        return ResponseEntity.ok(loginService.login(request));
+    }
 }

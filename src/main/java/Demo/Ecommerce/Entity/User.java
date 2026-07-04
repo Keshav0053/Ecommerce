@@ -2,6 +2,7 @@ package Demo.Ecommerce.Entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.jspecify.annotations.Nullable;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -42,9 +43,8 @@ public class User {
     @Builder.Default
     private Boolean isMobileVerified = false;
 
-    @Column(length = 20)
-    @Builder.Default
-    private String status = "ACTIVE";
+    @Enumerated(EnumType.STRING)
+    private UserStatus status;
 
     @Column(name = "created_at", updatable = false)
     private LocalDateTime createdAt;
@@ -62,6 +62,7 @@ public class User {
     public void preUpdate() {
         updatedAt = LocalDateTime.now();
     }
+
 }
 
 

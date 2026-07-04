@@ -1,21 +1,29 @@
 package Demo.Ecommerce.DTO;
 
+import jakarta.validation.constraints.AssertTrue;
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
 import lombok.Data;
 
-import java.util.UUID;
-
 @Data
-
 public class LoginRequestDTO {
 
-    @NotNull(message = "User Id is required")
-    private UUID userId;
+    @Email(message = "Invalid email")
+    private String email;
 
-    @NotBlank(message = "Provider is required")
-    private String provider;
+    @Pattern(
+            regexp = "^[6-9]\\d{9}$",
+            message = "Mobile number must be a valid 10-digit Indian mobile number"
+    )
+    private String mobileNumber;
 
-    @NotBlank(message = "Provider User Id is required")
-    private String providerUserId;
+    @NotBlank(message = "Password is required")
+    private String password;
+
+    @AssertTrue(message = "Either email or mobile number is required")
+    public boolean isEmailOrMobilePresent() {
+        return (email != null && !email.trim().isEmpty()) ||
+                (mobileNumber != null && !mobileNumber.trim().isEmpty());
+    }
 }
